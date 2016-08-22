@@ -514,6 +514,10 @@ module AnnotateModels
           end
         end
       rescue Exception => e
+        if try_removing_annotation_on_rollback(e, file)
+          return [file]
+        end
+
         puts "Unable to annotate #{file}: #{e.message}"
         puts "\t" + e.backtrace.join("\n\t") if options[:trace]
       end
@@ -719,6 +723,16 @@ module AnnotateModels
       yield
     ensure
       $VERBOSE = old_verbose
+    end
+
+    # try removing annotations on db:rollback
+    def try_removing_annotation_on_rollback(error, file_name)
+      if ARGV[0] == 'db:rollback' && error.message.include?('PG::UndefinedTable')
+        if remove_annotation_of_file(file_name)
+          puts "Removed annotations from file #{file_name}"
+          return true
+        end
+      end
     end
   end
 
