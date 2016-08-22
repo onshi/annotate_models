@@ -884,7 +884,7 @@ end
 
         annotate_one_file :position => :before
 
-        lines= magic_comment.split("\n")
+        lines = magic_comment.split("\n")
         File.open @model_file_name do |file|
           lines.count.times do |index|
             expect(file.readline).to eq "#{lines[index]}\n"

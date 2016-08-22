@@ -196,8 +196,8 @@ module AnnotateModels
       bare_type_allowance = 16
 
       if options[:format_markdown]
-        info<< sprintf( "# %-#{max_size + md_names_overhead}.#{max_size + md_names_overhead}s | %-#{md_type_allowance}.#{md_type_allowance}s | %s\n", 'Name', 'Type', 'Attributes' )
-        info<< "# #{ '-' * ( max_size + md_names_overhead ) } | #{'-' * md_type_allowance} | #{ '-' * 27 }\n"
+        info << sprintf( "# %-#{max_size + md_names_overhead}.#{max_size + md_names_overhead}s | %-#{md_type_allowance}.#{md_type_allowance}s | %s\n", 'Name', 'Type', 'Attributes' )
+        info << "# #{ '-' * ( max_size + md_names_overhead ) } | #{'-' * md_type_allowance} | #{ '-' * 27 }\n"
       end
 
       cols = if ignore_columns = options[:ignore_columns]
@@ -282,7 +282,7 @@ module AnnotateModels
         info << "#\n"
         info << "# ### Columns\n"
       else
-        info<< "# Table name: #{klass.table_name}\n"
+        info << "# Table name: #{klass.table_name}\n"
       end
       info << "#\n"
     end
@@ -399,8 +399,8 @@ module AnnotateModels
         old_columns = old_header && old_header.scan(column_pattern).sort
         new_columns = new_header && new_header.scan(column_pattern).sort
 
-        magic_comment_matcher= Regexp.new(/(^#\s*encoding:.*\n)|(^# coding:.*\n)|(^# -\*- coding:.*\n)|(^# -\*- encoding\s?:.*\n)|(^#\s*frozen_string_literal:.+\n)|(^# -\*- frozen_string_literal\s*:.+-\*-\n)/)
-        magic_comments= old_content.scan(magic_comment_matcher).flatten.compact
+        magic_comment_matcher = Regexp.new(/(^#\s*encoding:.*\n)|(^# coding:.*\n)|(^# -\*- coding:.*\n)|(^# -\*- encoding\s?:.*\n)|(^#\s*frozen_string_literal:.+\n)|(^# -\*- frozen_string_literal\s*:.+-\*-\n)/)
+        magic_comments = old_content.scan(magic_comment_matcher).flatten.compact
 
         if old_columns == new_columns && !options[:force]
           return false
